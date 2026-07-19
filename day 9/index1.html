@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 9 — JS Projects</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+/* ── RESET ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── THEME TOKENS ── */
+[data-theme="dark"] {
+  --bg:        #0d0f14;
+  --surface:   #13161e;
+  --card:      #181c26;
+  --border:    #252a38;
+  --border2:   #303648;
+  --text-1:    #eeeef2;
+  --text-2:    #9094a8;
+  --text-3:    #5a5f74;
+  --input-bg:  #13161e;
+  --topbar-bg: #0b0d12;
+  --toggle-bg: #252a38;
+}
+[data-theme="light"] {
+  --bg:        #f4f5f9;
+  --surface:   #ffffff;
+  --card:      #ffffff;
+  --border:    #e2e4ed;
+  --border2:   #d0d3e0;
+  --text-1:    #14151f;
+  --text-2:    #5a5f78;
+  --text-3:    #9095b0;
+  --input-bg:  #f8f9fc;
+  --topbar-bg: #ffffff;
+  --toggle-bg: #e2e4ed;
+}
+:root {
+  --purple:    #7c6ffc;
+  --teal:      #3dd6ac;
+  --amber:     #f5a623;
+  --font-ui:   'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --radius-sm: 8px;
+  --radius:    14px;
+  --radius-lg: 20px;
+}
+
+/* ── BASE ── */
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-ui);
+  background: var(--bg);
+  color: var(--text-1);
+  min-height: 100vh;
+  line-height: 1.6;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ── TOPBAR ── */
+.topbar {
+  background: var(--topbar-bg);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: background 0.3s;
+}
+.topbar-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 10px 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.datetime-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-family: var(--font-mono);
+  color: var(--text-2);
+}
+.dt-sep { color: var(--border2); }
+
+/* ── THEME TOGGLE ── */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-2);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 0;
+}
+.theme-toggle:hover { color: var(--text-1); }
+.toggle-track {
+  width: 44px;
+  height: 24px;
+  background: var(--toggle-bg);
+  border-radius: 100px;
+  border: 1px solid var(--border2);
+  position: relative;
+  transition: background 0.3s;
+  flex-shrink: 0;
+}
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  background: var(--purple);
+  border-radius: 50%;
+  transition: transform 0.25s ease;
+}
+[data-theme="light"] .toggle-thumb { transform: translateX(20px); }
+
+/* ── HEADER ── */
+header {
+  padding: 2.5rem 1.5rem 0;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--purple);
+  background: rgba(124,111,252,0.1);
+  border: 1px solid rgba(124,111,252,0.2);
+  padding: 5px 12px;
+  border-radius: 100px;
+  margin-bottom: 1rem;
+}
+.badge::before {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--purple);
+}
+h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.75rem;
+}
+h1 span { color: var(--purple); }
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-2);
+  max-width: 480px;
+  margin-bottom: 2.5rem;
+}
+
+/* ── TABS ── */
+.tabs-wrap { max-width: 960px; margin: 0 auto; padding: 0 1.5rem; }
+.tabs {
+  display: flex;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px;
+  margin-bottom: 2rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  transition: background 0.3s;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab-btn {
+  flex: 1;
+  min-width: 150px;
+  padding: 10px 16px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-2);
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.tab-btn .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.35;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+.tab-btn:hover { color: var(--text-1); background: var(--border); }
+.tab-btn.active { background: var(--card); color: var(--text-1); border-color: var(--border); }
+.tab-btn.active .dot { opacity: 1; }
+.tab-btn[data-tab="mult"].active { color: var(--purple); }
+.tab-btn[data-tab="mult"].active .dot { background: var(--purple); }
+.tab-btn[data-tab="fact"].active { color: var(--teal); }
+.tab-btn[data-tab="fact"].active .dot { background: var(--teal); }
+.tab-btn[data-tab="game"].active { color: var(--amber); }
+.tab-btn[data-tab="game"].active .dot { background: var(--amber); }
+
+/* ── MAIN ── */
+.main { max-width: 960px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+.panel { display: none; }
+.panel.active { display: block; animation: fadeIn 0.2s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── CARD ── */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  transition: background 0.3s, border-color 0.3s;
+}
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+.card-title { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; }
+.card-sub   { font-size: 13px; color: var(--text-2); margin-top: 4px; }
+.chip {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 100px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.chip-purple { background: rgba(124,111,252,0.12); color: var(--purple); border: 1px solid rgba(124,111,252,0.2); }
+.chip-teal   { background: rgba(61,214,172,0.1);   color: var(--teal);   border: 1px solid rgba(61,214,172,0.2); }
+.chip-amber  { background: rgba(245,166,35,0.1);   color: var(--amber);  border: 1px solid rgba(245,166,35,0.2); }
+
+/* ── FORM CONTROLS ── */
+.field { margin-bottom: 1.25rem; }
+.field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  margin-bottom: 6px;
+}
+.field input {
+  width: 100%;
+  padding: 11px 14px;
+  background: var(--input-bg);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-sm);
+  color: var(--text-1);
+  font-family: var(--font-mono);
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.3s;
+}
+.field input:focus {
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgba(124,111,252,0.15);
+}
+.row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+  outline: none;
+}
+.btn:active { transform: scale(0.97); }
+.btn-purple { background: var(--purple); color: #fff; }
+.btn-purple:hover { background: #9081ff; box-shadow: 0 4px 20px rgba(124,111,252,0.4); }
+.btn-amber  { background: var(--amber); color: #1a1000; }
+.btn-amber:hover  { background: #ffc040; box-shadow: 0 4px 20px rgba(245,166,35,0.35); }
+.btn-ghost  { background: transparent; color: var(--text-2); border: 1px solid var(--border2); }
+.btn-ghost:hover { background: var(--border); color: var(--text-1); }
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 0.5rem; }
+
+/* ── OUTPUT ── */
+.output-wrap { margin-top: 1.5rem; }
+.output-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-3);
+  margin-bottom: 8px;
+}
+.output {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1.25rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.9;
+  color: var(--text-1);
+  min-height: 60px;
+  overflow-x: auto;
+  white-space: pre;
+  transition: background 0.3s;
+}
+.divider { border: none; border-top: 1px solid var(--border); margin: 1.75rem 0; }
+
+/* ── MULT GRID ── */
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 6px;
+  margin-top: 0.5rem;
+}
+.mult-cell {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 6px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-2);
+  transition: all 0.15s;
+  cursor: default;
+}
+.mult-cell:hover { border-color: var(--purple); color: var(--purple); background: rgba(124,111,252,0.07); }
+.mult-cell .res { display: block; color: var(--text-1); font-weight: 600; font-size: 14px; margin-top: 2px; }
+
+/* ── FACTORIAL ── */
+.fact-result-big {
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--teal);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 1rem 0 0.4rem;
+  word-break: break-all;
+}
+.fact-eq {
+  font-size: 13px;
+  color: var(--text-2);
+  font-family: var(--font-mono);
+  word-break: break-all;
+  line-height: 1.7;
+}
+.step-row { display: flex; align-items: center; gap: 8px; margin-top: 1rem; flex-wrap: wrap; }
+.step-pill {
+  padding: 4px 12px;
+  background: rgba(61,214,172,0.08);
+  border: 1px solid rgba(61,214,172,0.2);
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--teal);
+}
+.step-arrow { color: var(--text-3); font-size: 13px; }
+
+/* ── GAME ── */
+.game-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+.stat-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  text-align: center;
+  transition: background 0.3s;
+}
+.stat-val {
+  font-size: 1.8rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-lbl { font-size: 11px; color: var(--text-3); text-transform: uppercase; letter-spacing: 0.07em; font-weight: 600; }
+.attempts-bar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  height: 8px;
+  margin: 1rem 0;
+  overflow: hidden;
+}
+.attempts-fill {
+  height: 100%;
+  border-radius: 100px;
+  background: linear-gradient(90deg, var(--teal), var(--amber));
+  transition: width 0.35s ease;
+  width: 100%;
+}
+.hint-msg {
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 1rem;
+  display: none;
+}
+.hint-low  { background: rgba(245,166,35,0.1);  color: var(--amber);  border: 1px solid rgba(245,166,35,0.25); }
+.hint-high { background: rgba(124,111,252,0.1); color: var(--purple); border: 1px solid rgba(124,111,252,0.25); }
+.hint-win  { background: rgba(61,214,172,0.1);  color: var(--teal);   border: 1px solid rgba(61,214,172,0.25); }
+.hint-lose { background: rgba(239,83,80,0.1);   color: #ef5350;       border: 1px solid rgba(239,83,80,0.25); }
+.guess-input-row { display: flex; gap: 10px; align-items: flex-start; }
+.guess-input-row .field { flex: 1; margin: 0; }
+.game-log { display: flex; flex-direction: column; gap: 6px; margin-top: 0.5rem; }
+.log-item {
+  font-size: 13px;
+  font-family: var(--font-mono);
+  padding: 9px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.3s;
+}
+.log-guess { color: var(--text-1); font-weight: 600; }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 1.25rem 1.5rem;
+  transition: border-color 0.3s;
+}
+.footer-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 12px;
+  color: var(--text-3);
+}
+.footer-inner strong { color: var(--purple); font-weight: 600; }
+#footerTime { font-family: var(--font-mono); font-size: 11px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .card { padding: 1.25rem; }
+  .row-2 { grid-template-columns: 1fr; }
+  .topbar-inner { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .stat-val { font-size: 1.3rem; }
+  .btn { font-size: 13px; padding: 10px 14px; }
+  .tab-btn { min-width: 130px; font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── TOPBAR ── -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="datetime-wrap">
+      <span>📅</span>
+      <span id="liveDate">Loading...</span>
+      <span class="dt-sep">·</span>
+      <span>🕐</span>
+      <span id="liveTime">00:00:00</span>
+    </div>
+    <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">
+      <span class="toggle-track"><span class="toggle-thumb"></span></span>
+      <span id="themeLabel">Light mode</span>
+    </button>
+  </div>
+</div>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="badge">Week 2 · Day 9</div>
+  <h1>Functions &amp; <span>Loops</span></h1>
+  <p class="subtitle">Three JavaScript projects exploring functions, arrow functions, and loop patterns.</p>
+</header>
+
+<!-- ── TABS ── -->
+<div class="tabs-wrap">
+  <div class="tabs" role="tablist">
+    <button class="tab-btn active" data-tab="mult" onclick="switchTab('mult', this)">
+      <span class="dot"></span> Multiplication table
+    </button>
+    <button class="tab-btn" data-tab="fact" onclick="switchTab('fact', this)">
+      <span class="dot"></span> Factorial calculator
+    </button>
+    <button class="tab-btn" data-tab="game" onclick="switchTab('game', this)">
+      <span class="dot"></span> Number guessing game
+    </button>
+  </div>
+</div>
+
+<!-- ── PANELS ── -->
+<main class="main">
+
+  <!-- PANEL 1: MULTIPLICATION TABLE -->
+  <section id="panel-mult" class="panel active">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Multiplication table</div>
+          <div class="card-sub">Generate a complete table for any number</div>
+        </div>
+        <span class="chip chip-purple">for loop</span>
+      </div>
+      <div class="row-2">
+        <div class="field">
+          <label>Number</label>
+          <input type="number" id="multNum" value="7" min="1" max="99">
+        </div>
+        <div class="field">
+          <label>Table goes up to</label>
+          <input type="number" id="multLimit" value="12" min="1" max="20">
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-purple" onclick="generateTable()">Generate table</button>
+        <button class="btn btn-ghost" onclick="randomTable()">Random number</button>
+      </div>
+      <div class="output-wrap">
+        <div class="output-label">Visual grid</div>
+        <div id="multGrid" class="preview-grid"></div>
+      </div>
+      <hr class="divider">
+      <div class="output-label">Code output</div>
+      <div id="multOut" class="output"></div>
+    </div>
+  </section>
+
+  <!-- PANEL 2: FACTORIAL -->
+  <section id="panel-fact" class="panel">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Factorial calculator</div>
+          <div class="card-sub">Recursive &amp; iterative approaches side by side</div>
+        </div>
+        <span class="chip chip-teal">recursion + loops</span>
+      </div>
+      <div class="field">
+        <label>Enter a number (0 – 20)</label>
+        <input type="number" id="factNum" value="6" min="0" max="20" oninput="calcFactorial()">
+      </div>
+      <div class="fact-result-big" id="factBig">720</div>
+      <div class="fact-eq" id="factEq">6 × 5 × 4 × 3 × 2 × 1 = 720</div>
+      <div class="step-row" id="factSteps"></div>
+      <hr class="divider">
+      <div class="row-2">
+        <div>
+          <div class="output-label">Recursive function</div>
+          <div class="output" style="font-size:12px; line-height:1.8;">function factorial(n) {
+  if (n === 0 || n === 1)
+    return 1;
+  return n * factorial(n - 1);
+}</div>
+        </div>
+        <div>
+          <div class="output-label">Loop function</div>
+          <div class="output" style="font-size:12px; line-height:1.8;">function factorial(n) {
+  let result = 1;
+  for (let i = 2; i &lt;= n; i++) {
+    result *= i;
+  }
+  return result;
+}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PANEL 3: GUESSING GAME -->
+  <section id="panel-game" class="panel">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Number guessing game</div>
+          <div class="card-sub">Guess the secret number between 1 and 100</div>
+        </div>
+        <span class="chip chip-amber">conditionals</span>
+      </div>
+      <div class="game-stats">
+        <div class="stat-box">
+          <div class="stat-val" id="statAttempts" style="color:var(--amber)">7</div>
+          <div class="stat-lbl">Attempts left</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="statGuesses" style="color:var(--purple)">0</div>
+          <div class="stat-lbl">Guesses made</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="statRange" style="color:var(--teal); font-size:1rem; padding-top:8px;">1–100</div>
+          <div class="stat-lbl">Range</div>
+        </div>
+      </div>
+      <div class="attempts-bar">
+        <div class="attempts-fill" id="attemptsFill"></div>
+      </div>
+      <div class="hint-msg" id="hintMsg"></div>
+      <div class="guess-input-row">
+        <div class="field">
+          <label>Your guess</label>
+          <input type="number" id="guessInput" placeholder="Enter 1 – 100…" min="1" max="100">
+        </div>
+        <button class="btn btn-amber" id="guessBtn" onclick="makeGuess()" style="margin-top:22px;">Guess</button>
+      </div>
+      <button class="btn btn-ghost" onclick="startGame()" style="width:100%; margin-top:10px;">New game</button>
+      <hr class="divider">
+      <div class="output-label">Guess history</div>
+      <div id="gameLog" class="game-log"></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-inner">
+    <span>Built for <strong>Vertexon Technology</strong> · Frontend Developer Internship · Week 2 Day 9</span>
+    <span id="footerTime"></span>
+  </div>
+</footer>
+
+<script>
+/* ═══════════════════════════════
+   THEME TOGGLE
+═══════════════════════════════ */
+function toggleTheme() {
+  var html  = document.documentElement;
+  var label = document.getElementById('themeLabel');
+  var isDark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  label.textContent = isDark ? 'Dark mode' : 'Light mode';
+  localStorage.setItem('theme', isDark ? 'light' : 'dark');
+}
+
+// Restore saved theme
+var savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  document.getElementById('themeLabel').textContent = savedTheme === 'light' ? 'Dark mode' : 'Light mode';
+}
+
+/* ═══════════════════════════════
+   LIVE DATE & TIME
+═══════════════════════════════ */
+function updateClock() {
+  var now = new Date();
+  var dateStr = now.toLocaleDateString('en-US', {
+    weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+  });
+  var timeStr = now.toLocaleTimeString('en-US', {
+    hour: '2-digit', minute: '2-digit', second: '2-digit'
+  });
+  document.getElementById('liveDate').textContent = dateStr;
+  document.getElementById('liveTime').textContent = timeStr;
+  document.getElementById('footerTime').textContent = timeStr;
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+/* ═══════════════════════════════
+   TAB SWITCHING
+═══════════════════════════════ */
+function switchTab(id, btn) {
+  document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('panel-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ═══════════════════════════════
+   PROJECT 1 — MULTIPLICATION TABLE
+═══════════════════════════════ */
+function generateTable() {
+  var num   = parseInt(document.getElementById('multNum').value)   || 1;
+  var limit = parseInt(document.getElementById('multLimit').value) || 10;
+  var grid  = document.getElementById('multGrid');
+  var out   = '';
+  grid.innerHTML = '';
+
+  for (var i = 1; i <= limit; i++) {
+    var product = num * i;
+
+    var cell = document.createElement('div');
+    cell.className = 'mult-cell';
+    cell.innerHTML = '<span>' + num + ' &times; ' + i + '</span><span class="res">' + product + '</span>';
+    grid.appendChild(cell);
+
+    out += num + ' \u00d7 ' + (i < 10 ? ' ' + i : i) + ' = ' + product + '\n';
+  }
+  document.getElementById('multOut').textContent = out.trim();
+}
+
+function randomTable() {
+  document.getElementById('multNum').value = Math.ceil(Math.random() * 12);
+  generateTable();
+}
+
+/* ═══════════════════════════════
+   PROJECT 2 — FACTORIAL
+═══════════════════════════════ */
+function factorialOf(n) {
+  if (n === 0 || n === 1) return 1;
+  var result = 1;
+  for (var i = 2; i <= n; i++) { result *= i; }
+  return result;
+}
+
+function calcFactorial() {
+  var n = parseInt(document.getElementById('factNum').value);
+  if (isNaN(n) || n < 0 || n > 20) {
+    document.getElementById('factBig').textContent = '–';
+    document.getElementById('factEq').textContent  = 'Enter a number between 0 and 20';
+    document.getElementById('factSteps').innerHTML  = '';
+    return;
+  }
+
+  var result = factorialOf(n);
+  var steps  = [];
+  for (var i = n; i >= 1; i--) { steps.push(i); }
+
+  document.getElementById('factBig').textContent = result.toLocaleString();
+  document.getElementById('factEq').textContent  = n === 0
+    ? '0! = 1  (by definition)'
+    : n + '! = ' + steps.join(' \u00d7 ') + ' = ' + result;
+
+  var stepsEl = document.getElementById('factSteps');
+  stepsEl.innerHTML = '';
+  if (n > 0 && n <= 10) {
+    steps.forEach(function(s, i) {
+      var pill = document.createElement('span');
+      pill.className   = 'step-pill';
+      pill.textContent = s;
+      stepsEl.appendChild(pill);
+      if (i < steps.length - 1) {
+        var arr = document.createElement('span');
+        arr.className   = 'step-arrow';
+        arr.textContent = '\u00d7';
+        stepsEl.appendChild(arr);
+      }
+    });
+  }
+}
+
+/* ═══════════════════════════════
+   PROJECT 3 — GUESSING GAME
+═══════════════════════════════ */
+var secret, attemptsLeft, totalGuesses, rangeMin, rangeMax;
+var MAX_ATTEMPTS = 7;
+
+function startGame() {
+  secret       = Math.floor(Math.random() * 100) + 1;
+  attemptsLeft = MAX_ATTEMPTS;
+  totalGuesses = 0;
+  rangeMin     = 1;
+  rangeMax     = 100;
+
+  document.getElementById('statAttempts').textContent = attemptsLeft;
+  document.getElementById('statGuesses').textContent  = totalGuesses;
+  document.getElementById('statRange').textContent    = rangeMin + '\u2013' + rangeMax;
+  document.getElementById('attemptsFill').style.width = '100%';
+  document.getElementById('guessInput').disabled      = false;
+  document.getElementById('guessInput').value         = '';
+  document.getElementById('guessBtn').disabled        = false;
+  document.getElementById('gameLog').innerHTML        = '';
+
+  var hint = document.getElementById('hintMsg');
+  hint.style.display = 'none';
+  hint.className     = 'hint-msg';
+}
+
+function makeGuess() {
+  var input = document.getElementById('guessInput');
+  var guess = parseInt(input.value);
+
+  if (isNaN(guess) || guess < 1 || guess > 100) {
+    showHint('hint-low', 'Please enter a number between 1 and 100.');
+    return;
+  }
+
+  attemptsLeft--;
+  totalGuesses++;
+
+  document.getElementById('statAttempts').textContent = attemptsLeft;
+  document.getElementById('statGuesses').textContent  = totalGuesses;
+  document.getElementById('attemptsFill').style.width = ((attemptsLeft / MAX_ATTEMPTS) * 100) + '%';
+
+  if (guess === secret) {
+    showHint('hint-win', '🎉 Correct! The number was ' + secret + '. You won in ' + totalGuesses + ' guess' + (totalGuesses > 1 ? 'es' : '') + '!');
+    addLog(guess, '✓ Correct!', 'var(--teal)');
+    endGame();
+  } else if (attemptsLeft === 0) {
+    showHint('hint-lose', '❌ Game over! The secret number was ' + secret + '.');
+    addLog(guess, 'Out of attempts', '#ef5350');
+    endGame();
+  } else if (guess < secret) {
+    rangeMin = Math.max(rangeMin, guess + 1);
+    showHint('hint-low', '📈 Too low! Try higher. (' + attemptsLeft + ' attempt' + (attemptsLeft !== 1 ? 's' : '') + ' left)');
+    addLog(guess, '↑ Too low', 'var(--amber)');
+  } else {
+    rangeMax = Math.min(rangeMax, guess - 1);
+    showHint('hint-high', '📉 Too high! Try lower. (' + attemptsLeft + ' attempt' + (attemptsLeft !== 1 ? 's' : '') + ' left)');
+    addLog(guess, '↓ Too high', 'var(--purple)');
+  }
+
+  document.getElementById('statRange').textContent = rangeMin + '\u2013' + rangeMax;
+  input.value = '';
+  input.focus();
+}
+
+function showHint(cls, msg) {
+  var el = document.getElementById('hintMsg');
+  el.className     = 'hint-msg ' + cls;
+  el.textContent   = msg;
+  el.style.display = 'block';
+}
+
+function addLog(guess, hint, color) {
+  var log  = document.getElementById('gameLog');
+  var item = document.createElement('div');
+  item.className = 'log-item';
+  item.innerHTML =
+    '<span>Guess #' + totalGuesses + ': <span class="log-guess">' + guess + '</span></span>' +
+    '<span style="color:' + color + '; font-size:11px;">' + hint + '</span>';
+  log.prepend(item);
+}
+
+function endGame() {
+  document.getElementById('guessInput').disabled = true;
+  document.getElementById('guessBtn').disabled   = true;
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && document.activeElement.id === 'guessInput') {
+    makeGuess();
+  }
+});
+
+/* ── INIT ── */
+generateTable();
+calcFactorial();
+startGame();
+</script>
+</body>
+</html>

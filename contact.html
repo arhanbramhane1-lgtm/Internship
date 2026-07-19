@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Me</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0A192F; /* Dark Navy */
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background-color: #112240;
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        h1, h2 {
+            color: #64FFDA;
+            text-align: center;
+        }
+
+        p {
+            font-size: 18px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 5px;
+            background-color: #CCD6F6;
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            width: 48%;
+            background-color: #64FFDA;
+            color: #0A192F;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover,
+        input[type="reset"]:hover {
+            background-color: #52d1b8;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #8892B0;
+        }
+
+        hr {
+            border: 1px solid #233554;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>Contact Me</h1>
+            <p>Feel free to get in touch with me.</p>
+        </header>
+
+        <hr>
+
+        <section>
+            <h2>My Contact Information</h2>
+
+            <p><strong>Name:</strong> Arhan Bramhane</p>
+            <p><strong>Email:</strong> arhanbramhane1@gmail.com</p>
+            <p><strong>Phone:</strong> 8983417560</p>
+            <p><strong>Location:</strong> Maharashtra, India</p>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>Send Me a Message</h2>
+
+            <form>
+                <label>Name:</label>
+                <input type="text" required>
+
+                <label>Email:</label>
+                <input type="email" required>
+
+                <label>Subject:</label>
+                <input type="text">
+
+                <label>Message:</label>
+                <textarea rows="5"></textarea>
+
+                <input type="submit" value="Send Message">
+                <input type="reset" value="Clear">
+            </form>
+        </section>
+
+        <footer>
+            <p>&copy; 2026 Arhan Bramhane. All Rights Reserved.</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>

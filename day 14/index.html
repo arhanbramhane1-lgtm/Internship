@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ledger — Task Manager</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app">
+
+    <header class="topbar">
+      <div class="brand">
+        <h1>Ledger</h1>
+        <p class="tagline">A running record of what needs doing</p>
+      </div>
+      <button id="newTaskBtn" class="btn-primary">+ New Task</button>
+    </header>
+
+    <section class="controls">
+      <input type="text" id="searchInput" class="search-input" placeholder="Search tasks by title…">
+
+      <div class="filter-group">
+        <label class="filter-label">Status</label>
+        <select id="statusFilter">
+          <option value="all">All</option>
+          <option value="todo">To do</option>
+          <option value="in-progress">In progress</option>
+          <option value="done">Done</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label class="filter-label">Priority</label>
+        <select id="priorityFilter">
+          <option value="all">All</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="summary" id="summaryBar"></section>
+
+    <main class="board" id="board">
+      <div class="column" data-status="todo">
+        <h2 class="column-head">To do <span class="count" id="countTodo">0</span></h2>
+        <div class="column-body" id="listTodo"></div>
+      </div>
+      <div class="column" data-status="in-progress">
+        <h2 class="column-head">In progress <span class="count" id="countInProgress">0</span></h2>
+        <div class="column-body" id="listInProgress"></div>
+      </div>
+      <div class="column" data-status="done">
+        <h2 class="column-head">Done <span class="count" id="countDone">0</span></h2>
+        <div class="column-body" id="listDone"></div>
+      </div>
+    </main>
+
+    <p id="emptyState" class="empty-state hidden">No tasks match your search or filters.</p>
+
+  </div>
+
+  <!-- Task form modal (used for both Add and Edit) -->
+  <div id="taskModal" class="modal hidden">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 id="modalTitle">New Task</h3>
+        <button id="modalClose" class="modal-close" aria-label="Close">✕</button>
+      </div>
+      <form id="taskForm" class="modal-form">
+        <input type="hidden" id="taskId">
+
+        <label class="field-label" for="titleInput">Title</label>
+        <input type="text" id="titleInput" required maxlength="80" placeholder="e.g. Write sprint retro notes">
+
+        <label class="field-label" for="descInput">Description</label>
+        <textarea id="descInput" rows="3" placeholder="Optional details…"></textarea>
+
+        <div class="field-row">
+          <div class="field-col">
+            <label class="field-label" for="priorityInput">Priority</label>
+            <select id="priorityInput">
+              <option value="high">High</option>
+              <option value="medium" selected>Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+          <div class="field-col">
+            <label class="field-label" for="statusInput">Status</label>
+            <select id="statusInput">
+              <option value="todo">To do</option>
+              <option value="in-progress">In progress</option>
+              <option value="done">Done</option>
+            </select>
+          </div>
+          <div class="field-col">
+            <label class="field-label" for="dueInput">Due date</label>
+            <input type="date" id="dueInput">
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" id="deleteTaskBtn" class="btn-danger hidden">Delete</button>
+          <div class="modal-actions-right">
+            <button type="button" id="cancelBtn" class="btn-ghost">Cancel</button>
+            <button type="submit" class="btn-primary" id="saveBtn">Add Task</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+<script src="script.js"></script>
+</body>
+</html>

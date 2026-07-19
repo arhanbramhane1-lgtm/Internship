@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Classbook — Student Management System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="light">
+
+<header class="topbar">
+  <div class="brand">
+    <span class="mark">C</span>
+    <span>Classbook</span>
+  </div>
+  <div class="clock-wrap">
+    <span id="dateStr">—</span>
+    <span class="time" id="timeStr">—:—:—</span>
+  </div>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <span id="themeIcon">🌙</span>
+    <span id="themeLabel">Dark mode</span>
+  </button>
+</header>
+
+<main>
+  <div class="page-head">
+    <div class="eyebrow">Day 10 · Arrays &amp; Objects</div>
+    <h1>Student Management System</h1>
+    <p>Add, search, and manage student records — with an automatic class topper.</p>
+  </div>
+
+  <section class="stats">
+    <div class="stat-card">
+      <div class="label">Total Students</div>
+      <div class="value" id="statTotal">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Average Score</div>
+      <div class="value" id="statAvg">0</div>
+    </div>
+    <div class="stat-card topper">
+      <div class="label">Class Topper</div>
+      <div class="value" id="statTopper">—</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Subjects Tracked</div>
+      <div class="value" id="statSubjects">0</div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Add a student</h2>
+    <form class="student-form" id="studentForm">
+      <div class="field">
+        <label for="inpName">Full name</label>
+        <input type="text" id="inpName" placeholder="e.g. Asha Verma" required>
+      </div>
+      <div class="field">
+        <label for="inpSubject">Subject</label>
+        <input type="text" id="inpSubject" placeholder="e.g. Mathematics" required>
+      </div>
+      <div class="field">
+        <label for="inpScore">Score (%)</label>
+        <input type="number" id="inpScore" min="0" max="100" placeholder="0–100" required>
+      </div>
+      <div class="field">
+        <label for="inpRoll">Roll No.</label>
+        <input type="text" id="inpRoll" placeholder="optional">
+      </div>
+      <button type="submit" class="btn btn-primary">Add student</button>
+    </form>
+  </section>
+
+  <div class="toolbar">
+    <input type="text" class="search" id="searchInput" placeholder="Search by name, roll no., or subject…">
+    <button class="btn btn-ghost btn-small" id="clearAllBtn">Clear all</button>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Student</th>
+          <th>Roll No.</th>
+          <th>Subject</th>
+          <th>Score</th>
+          <th>Grade</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="tableBody">
+      </tbody>
+    </table>
+    <div class="empty-state" id="emptyState" style="display:none;">
+      <div class="big">📋</div>
+      <div>No students yet — add your first record above.</div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span><strong></strong> Student Management System</span>
+    <span>Devloped by Arhan Bramhane</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>

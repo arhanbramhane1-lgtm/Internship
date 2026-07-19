@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arhan's Portfolio</title>
+<link rel="stylesheet" href="port.css">
+
+<style>
+    
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+}
+
+/* Navbar */
+nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+}
+
+.logo{
+    font-size: 28px;
+    font-weight: bold;
+    color: #38bdf8;
+}
+
+nav ul{
+    list-style: none;
+    display: flex;
+}
+
+nav ul li{
+    margin-left: 30px;
+}
+
+nav ul li a{
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+nav ul li a:hover{
+    color: #38bdf8;
+}
+
+/* Hero Section */
+.hero{
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    padding: 50px 8%;
+    flex-wrap: wrap;
+}
+
+.hero-image img{
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #38bdf8;
+    box-shadow: 0 0 30px rgba(56,189,248,0.6);
+    transition: 0.3s;
+}
+
+.hero-image img:hover{
+    transform: scale(1.05);
+}
+
+.hero-content{
+    text-align: center;
+}
+
+.hero-content h1{
+    font-size: 55px;
+}
+
+.hero-content span{
+    color: #38bdf8;
+}
+
+.hero-content p{
+    font-size: 20px;
+    margin: 20px 0;
+}
+
+.btn{
+    display: inline-block;
+    padding: 12px 30px;
+    background: #38bdf8;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: 0.3s;
+}
+
+.btn:hover{
+    background: white;
+    color: #0f172a;
+}
+
+/* About Section */
+.about{
+    padding: 80px 10%;
+    text-align: center;
+}
+
+.about h2{
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #38bdf8;
+}
+
+.about p{
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+/* Services Section */
+.services{
+    padding: 80px 10%;
+    text-align: center;
+}
+
+.services h2{
+    color: #38bdf8;
+    margin-bottom: 40px;
+    font-size: 40px;
+}
+
+.cards{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.card{
+    background: rgba(255,255,255,0.1);
+    width: 280px;
+    padding: 30px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
+
+.card:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+}
+
+.card h3{
+    margin-bottom: 15px;
+    color: #38bdf8;
+}
+
+.card p{
+    line-height: 1.6;
+}
+
+/* Footer */
+footer{
+    text-align: center;
+    padding: 20px;
+    background: rgba(255,255,255,0.1);
+    margin-top: 50px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav>
+    <div class="logo">Arhan.</div>
+
+    <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+
+    <div class="hero-image">
+        <!-- Apni image ka naam yahan likho -->
+        <img src="arhan.jpg" alt="Arhan Bramhane">
+    </div>
+
+    <div class="hero-content">
+        <h1>Hello, I'm <span>Arhan Bramhane</span></h1>
+        <p>Frontend Developer | Web Enthusiast</p>
+        <a href="#" class="btn">Hire Me</a>
+    </div>
+
+</section>
+
+<!-- About Section -->
+<section class="about">
+    <h2>About Me</h2>
+    <p>
+        I am a passionate Frontend Developer who loves creating
+        beautiful and responsive websites using HTML, CSS, and JavaScript.
+        I enjoy building modern web applications and continuously learning
+        new technologies.
+    </p>
+</section>
+
+<!-- Services Section -->
+<section class="services">
+    <h2>My Services</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Web Design</h3>
+            <p>Creating attractive and modern website designs.</p>
+        </div>
+
+        <div class="card">
+            <h3>Frontend Development</h3>
+            <p>Building responsive websites using HTML, CSS and JavaScript.</p>
+        </div>
+
+        <div class="card">
+            <h3>UI/UX Design</h3>
+            <p>Designing user-friendly and engaging interfaces.</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>© 2026 Arhan Bramhane | All Rights Reserved</p>
+</footer>
+
+</body>
+</html>

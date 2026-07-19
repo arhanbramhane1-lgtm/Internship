@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Responsive Navbar</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins,sans-serif;
+}
+
+body{
+background:#0f172a;
+color:#fff;
+}
+
+/* Navbar */
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 8%;
+background:#111827;
+position:sticky;
+top:0;
+}
+
+.logo{
+font-size:28px;
+font-weight:700;
+color:#38bdf8;
+}
+
+.nav-links{
+display:flex;
+list-style:none;
+gap:35px;
+}
+
+.nav-links a{
+text-decoration:none;
+color:#fff;
+font-size:16px;
+transition:.3s;
+}
+
+.nav-links a:hover{
+color:#38bdf8;
+}
+
+.btn{
+background:#38bdf8;
+padding:10px 22px;
+border-radius:30px;
+text-decoration:none;
+color:#fff;
+font-weight:600;
+}
+
+#menu{
+display:none;
+}
+
+.hamburger{
+display:none;
+flex-direction:column;
+cursor:pointer;
+gap:6px;
+}
+
+.hamburger span{
+width:30px;
+height:3px;
+background:white;
+transition:.3s;
+border-radius:5px;
+}
+
+/* Hero */
+
+.hero{
+height:90vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+}
+
+.hero h1{
+font-size:55px;
+margin-bottom:20px;
+}
+
+.hero p{
+max-width:650px;
+margin:auto;
+line-height:30px;
+color:#cbd5e1;
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+.btn{
+display:none;
+}
+
+.hamburger{
+display:flex;
+}
+
+.nav-links{
+position:absolute;
+top:75px;
+left:0;
+width:100%;
+background:#111827;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:25px;
+padding:25px 0;
+display:none;
+}
+
+#menu:checked~.nav-links{
+display:flex;
+}
+
+#menu:checked+.hamburger span:nth-child(1){
+transform:rotate(45deg) translateY(12px);
+}
+
+#menu:checked+.hamburger span:nth-child(2){
+opacity:0;
+}
+
+#menu:checked+.hamburger span:nth-child(3){
+transform:rotate(-45deg) translateY(-12px);
+}
+
+.hero h1{
+font-size:36px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+
+<div class="logo">Arhan.</div>
+
+<input type="checkbox" id="menu">
+
+<label for="menu" class="hamburger">
+<span></span>
+<span></span>
+<span></span>
+</label>
+
+<ul class="nav-links">
+<li><a href="#">Home</a></li>
+<li><a href="#">About</a></li>
+<li><a href="#">Services</a></li>
+<li><a href="#">Portfolio</a></li>
+<li><a href="#">Contact</a></li>
+</ul>
+
+<a href="#" class="btn">Hire Me</a>
+
+</nav>
+
+<section class="hero">
+<div>
+<h1>Responsive CSS Only Hamburger Menu</h1>
+<p>
+This responsive navigation is built using only HTML and CSS. Resize the browser to mobile width and click the hamburger icon to open and close the menu.
+</p>
+</div>
+</section>
+
+</body>
+</html>

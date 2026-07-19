@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arhan Bramhane - Resume</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+    background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+    padding:30px;
+}
+
+.resume{
+    max-width:1000px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:300px 1fr;
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* Left Side */
+.left{
+    background:#1e293b;
+    color:white;
+    padding:40px 30px;
+}
+
+.profile{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.profile img{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    border:5px solid white;
+    object-fit:cover;
+}
+
+.profile h1{
+    margin-top:15px;
+    font-size:28px;
+}
+
+.profile p{
+    color:#cbd5e1;
+}
+
+.contact{
+    margin-top:30px;
+}
+
+.contact h2,
+.skills h2{
+    margin-bottom:15px;
+    color:#38bdf8;
+}
+
+.contact p{
+    margin:10px 0;
+}
+
+.skill-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.skill{
+    background:#38bdf8;
+    padding:8px 14px;
+    border-radius:20px;
+    font-size:14px;
+}
+
+/* Right Side */
+.right{
+    padding:40px;
+}
+
+section{
+    margin-bottom:35px;
+}
+
+section h2{
+    color:#0f172a;
+    border-bottom:3px solid #38bdf8;
+    padding-bottom:8px;
+    margin-bottom:15px;
+}
+
+.education-item,
+.project-item,
+.experience-item{
+    margin-bottom:20px;
+}
+
+.education-item h3,
+.project-item h3,
+.experience-item h3{
+    color:#334155;
+}
+
+ul{
+    padding-left:20px;
+}
+
+li{
+    margin:8px 0;
+    color:#555;
+}
+
+.profile-summary{
+    line-height:1.7;
+    color:#444;
+}
+
+/* Responsive */
+@media(max-width:768px){
+
+    .resume{
+        grid-template-columns:1fr;
+    }
+
+    .right{
+        padding:25px;
+    }
+
+    .left{
+        text-align:center;
+    }
+
+    .skill-list{
+        justify-content:center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="resume">
+
+    <!-- LEFT SIDE -->
+    <div class="left">
+
+        <div class="profile">
+            <img src="arhan.jpeg"Profile Photo">
+
+            <h1>Arhan Bramhane</h1>
+            <p>Frontend Developer Intern</p>
+        </div>
+
+        <div class="contact">
+            <h2>Contact</h2>
+
+            <p>📞 +91 8983417560</p>
+            <p>✉️ arhanbramhane1@gmail.com</p>
+            <p>📍 Maharashtra, India</p>
+            <p>🔗 LinkedIn Profile</p>
+        </div>
+
+        <div class="skills">
+            <h2>Skills</h2>
+
+            <div class="skill-list">
+                <div class="skill">HTML5</div>
+                <div class="skill">CSS3</div>
+                <div class="skill">JavaScript</div>
+                <div class="skill">C</div>
+                <div class="skill">C++</div>
+                <div class="skill">Python (Learning)</div>
+                <div class="skill">Git</div>
+                <div class="skill">GitHub</div>
+                <div class="skill">Responsive Design</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- RIGHT SIDE -->
+    <div class="right">
+
+        <section>
+            <h2>Profile</h2>
+
+            <p class="profile-summary">
+                Enthusiastic and motivated aspiring Frontend Developer
+                with strong knowledge of HTML, CSS and JavaScript.
+                Passionate about building responsive, user-friendly
+                and visually appealing web applications.
+            </p>
+        </section>
+
+        <section>
+            <h2>Education</h2>
+
+            <div class="education-item">
+                <h3>B.Tech in Data Science (Student)</h3>
+                <p>Tulsiramji Gaikwad Patil College of Engineering</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>Projects</h2>
+
+            <div class="project-item">
+                <h3>Portfolio Website</h3>
+                <ul>
+                    <li>Designed and developed a responsive portfolio website.</li>
+                    <li>Built using HTML5, CSS3 and JavaScript.</li>
+                </ul>
+            </div>
+
+            <div class="project-item">
+                <h3>Landing Page</h3>
+                <ul>
+                    <li>Created a modern responsive landing page.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section>
+            <h2>Experience</h2>
+
+            <div class="experience-item">
+                <h3>Frontend Developer Intern</h3>
+                <p>Vertexon Technology</p>
+            </div>
+        </section>
+
+    </div>
+
+</div>
+
+</body>
+</html>

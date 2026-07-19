@@ -1,0 +1,66 @@
+.welcome-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 80% 20%, #1e3c72, #0f0c29 60%);
+  padding: 20px;
+}
+
+.welcome-card {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 50px 40px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+  max-width: 400px;
+}
+
+.avatar-circle {
+  width: 70px;
+  height: 70px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f7b733, #fc4a1a);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.welcome-card h1 {
+  color: #fff;
+  font-family: "Georgia", serif;
+  font-size: 24px;
+  margin-bottom: 6px;
+}
+
+.welcome-card p {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+}
+
+.welcome-sub {
+  margin: 14px 0 24px;
+  color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.logout-btn {
+  padding: 11px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  background: transparent;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #fc4a1a;
+}

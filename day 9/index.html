@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day 9 — JS Projects</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ── TOP BAR ── -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="datetime-wrap">
+      <span class="dt-icon">🗓</span>
+      <span id="liveDate"></span>
+      <span class="dt-sep">·</span>
+      <span class="dt-icon">🕐</span>
+      <span id="liveTime"></span>
+    </div>
+    <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle theme">
+      <span class="toggle-track">
+        <span class="toggle-thumb"></span>
+      </span>
+      <span id="themeLabel">Light mode</span>
+    </button>
+  </div>
+</div>
+
+<header>
+  <div class="badge">Week 2 · Day 9</div>
+  <h1>JavaScript  <span>Projects</span></h1>
+  <p class="subtitle">Three JavaScript projects exploring functions, arrow functions, and loop patterns.</p>
+</header>
+
+<div class="tabs-wrap">
+  <div class="tabs" role="tablist">
+    <button class="tab-btn active" data-tab="mult" role="tab" onclick="switchTab('mult',this)">
+      <span class="dot"></span> Multiplication table
+    </button>
+    <button class="tab-btn" data-tab="fact" role="tab" onclick="switchTab('fact',this)">
+      <span class="dot"></span> Factorial calculator
+    </button>
+    <button class="tab-btn" data-tab="game" role="tab" onclick="switchTab('game',this)">
+      <span class="dot"></span> Number guessing game
+    </button>
+  </div>
+</div>
+
+<main class="main">
+
+  <!-- ══ PANEL 1: MULTIPLICATION TABLE ══ -->
+  <section id="panel-mult" class="panel active" role="tabpanel">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Multiplication table</div>
+          <div class="card-sub">Generate a complete table for any number</div>
+        </div>
+        <span class="chip chip-purple">for loop</span>
+      </div>
+
+      <div class="row-2">
+        <div class="field">
+          <label>Number</label>
+          <input type="number" id="multNum" value="7" min="1" max="99">
+        </div>
+        <div class="field">
+          <label>Table goes up to</label>
+          <input type="number" id="multLimit" value="12" min="1" max="20">
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-purple" onclick="generateTable()">Generate table</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('multNum').value=Math.ceil(Math.random()*12); generateTable()">Random number</button>
+      </div>
+
+      <div class="output-wrap">
+        <div class="output-label">Visual grid</div>
+        <div id="multGrid" class="preview-grid"></div>
+      </div>
+
+      <hr class="divider">
+      <div class="output-label">Code output</div>
+      <div id="multOut" class="output"></div>
+    </div>
+  </section>
+
+  <!-- ══ PANEL 2: FACTORIAL ══ -->
+  <section id="panel-fact" class="panel" role="tabpanel">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Factorial calculator</div>
+          <div class="card-sub">Recursive &amp; iterative approaches side by side</div>
+        </div>
+        <span class="chip chip-teal">recursion + loops</span>
+      </div>
+
+      <div class="field">
+        <label>Enter a number (0 – 20)</label>
+        <input type="number" id="factNum" value="6" min="0" max="20" oninput="calcFactorial()">
+      </div>
+
+      <div class="fact-result-big" id="factBig">720</div>
+      <div class="fact-eq" id="factEq">6 × 5 × 4 × 3 × 2 × 1</div>
+      <div class="step-row" id="factSteps"></div>
+
+      <hr class="divider">
+
+      <div class="row-2">
+        <div>
+          <div class="output-label">Recursive function</div>
+          <div class="output" style="font-size:12px; line-height:1.7;">function factorial(n) {
+  if (n === 0 || n === 1)
+    return 1;
+  return n * factorial(n - 1);
+}</div>
+        </div>
+        <div>
+          <div class="output-label">Loop function</div>
+          <div class="output" style="font-size:12px; line-height:1.7;">function factorial(n) {
+  let result = 1;
+  for (let i = 2; i &lt;= n; i++) {
+    result *= i;
+  }
+  return result;
+}</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PANEL 3: GUESSING GAME ══ -->
+  <section id="panel-game" class="panel" role="tabpanel">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <div class="card-title">Number guessing game</div>
+          <div class="card-sub">Guess the secret number between 1 and 100</div>
+        </div>
+        <span class="chip chip-amber">conditionals</span>
+      </div>
+
+      <div class="game-stats">
+        <div class="stat-box">
+          <div class="stat-val" id="statAttempts" style="color:var(--amber)">7</div>
+          <div class="stat-lbl">Attempts left</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="statGuesses" style="color:var(--purple)">0</div>
+          <div class="stat-lbl">Guesses made</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-val" id="statRange" style="color:var(--teal); font-size:1.1rem; margin-top:6px;">1–100</div>
+          <div class="stat-lbl">Range</div>
+        </div>
+      </div>
+
+      <div class="attempts-bar"><div class="attempts-fill" id="attemptsFill"></div></div>
+
+      <div class="hint-msg" id="hintMsg"></div>
+
+      <div class="guess-input-row">
+        <div class="field" style="flex:1; margin:0;">
+          <input type="number" id="guessInput" placeholder="Enter your guess…" min="1" max="100">
+        </div>
+        <button class="btn btn-amber" id="guessBtn" onclick="makeGuess()">Guess</button>
+      </div>
+
+      <button class="btn btn-ghost" onclick="startGame()" style="margin-top:10px; width:100%; justify-content:center;">
+        New game
+      </button>
+
+      <hr class="divider">
+      <div class="output-label">Guess history</div>
+      <div id="gameLog" class="game-log"></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span>Developed by <strong>Arhan Bramhane</strong> · Frontend Developer Internship · Week 2 Day 9</span>
+    <span id="footerTime"></span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

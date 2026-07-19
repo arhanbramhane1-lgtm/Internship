@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Frontend Development Journey</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4f8;
+      color: #333;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1a6b7c, #2a9d8f);
+      color: white;
+      text-align: center;
+      padding: 60px 20px 50px;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+
+    header p {
+      font-size: 1rem;
+      opacity: 0.9;
+      font-style: italic;
+    }
+
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 40px 50px 60px;
+      background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 30px,
+        rgba(42,157,143,0.04) 30px,
+        rgba(42,157,143,0.04) 31px
+      );
+    }
+
+    section {
+      margin-bottom: 40px;
+    }
+
+    section h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 16px;
+    }
+
+    section p {
+      font-size: 0.97rem;
+      line-height: 1.75;
+      color: #444;
+      margin-bottom: 12px;
+    }
+
+    .highlight-section {
+      border-left: 4px solid #2a9d8f;
+      padding: 20px 25px;
+      background: rgba(240, 248, 247, 0.6);
+      margin-bottom: 40px;
+    }
+
+    .highlight-section h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 14px;
+    }
+
+    .highlight-section ul {
+      list-style: disc;
+      padding-left: 20px;
+    }
+
+    .highlight-section ul li {
+      font-size: 0.97rem;
+      line-height: 1.9;
+      color: #444;
+    }
+
+    .goals-section {
+      border-left: 4px solid #1a6b7c;
+      padding: 20px 25px;
+      background: rgba(240, 245, 248, 0.6);
+      margin-bottom: 40px;
+    }
+
+    .goals-section h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 14px;
+    }
+
+    .goals-section ul {
+      list-style: disc;
+      padding-left: 20px;
+    }
+
+    .goals-section ul li {
+      font-size: 0.97rem;
+      line-height: 1.9;
+      color: #444;
+    }
+
+    .skills-section h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.93rem;
+    }
+
+    table th {
+      background: #2a9d8f;
+      color: white;
+      padding: 10px 14px;
+      text-align: left;
+    }
+
+    table td {
+      padding: 9px 14px;
+      border-bottom: 1px solid #e0e0e0;
+      color: #444;
+    }
+
+    table tr:nth-child(even) td {
+      background: #f7fafa;
+    }
+
+    .bar-wrap {
+      background: #e0e0e0;
+      border-radius: 20px;
+      height: 10px;
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 100%;
+      border-radius: 20px;
+      background: linear-gradient(90deg, #1a6b7c, #2a9d8f);
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 0.82rem;
+      color: #888;
+      background: #307fce;
+      border-top: 1px solid #dde3e8;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>My Frontend Development Journey</h1>
+    <p>By Arhan Bramhane</p>
+  </header>
+
+  <main>
+
+    <section>
+      <h2>My Journey</h2>
+      <p>Hello, I am Arhan Bramhane. I am pursuing B.Tech in Computer Science and Engineering with a specialization in Data Science.</p>
+      <p>I started learning Frontend Development because I enjoy creating websites and understanding how modern web applications are designed.</p>
+      <p>Through this internship, I am improving my HTML, CSS, Git and GitHub skills by completing practical tasks and projects.</p>
+      <p>My goal is to become a skilled Frontend Developer and create responsive, user-friendly and visually appealing websites.</p>
+    </section>
+
+    <div class="highlight-section">
+      <h2>Currently Learning</h2>
+      <ul>
+        <li>HTML5</li>
+        <li>CSS3</li>
+        <li>Git &amp; GitHub</li>
+        <li>Responsive Web Design</li>
+        <li>JavaScript Basics</li>
+      </ul>
+    </div>
+
+    <div class="goals-section">
+      <h2>My Goals</h2>
+      <ul>
+        <li>Build responsive and accessible web pages</li>
+        <li>Master CSS layouts — Flexbox and Grid</li>
+        <li>Learn JavaScript and DOM manipulation</li>
+        <li>Contribute to real-world frontend projects</li>
+        <li>Grow into a confident, full-stack developer</li>
+      </ul>
+    </div>
+
+    <section class="skills-section">
+      <h2>Skills Progress</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Skill</th>
+            <th>Level</th>
+            <th style="width:40%">Progress</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>HTML5</td>
+            <td>Intermediate</td>
+            <td><div class="bar-wrap"><div class="bar" style="width:75%"></div></div></td>
+          </tr>
+          <tr>
+            <td>CSS3</td>
+            <td>Beginner–Intermediate</td>
+            <td><div class="bar-wrap"><div class="bar" style="width:60%"></div></div></td>
+          </tr>
+          <tr>
+            <td>Git &amp; GitHub</td>
+            <td>Beginner</td>
+            <td><div class="bar-wrap"><div class="bar" style="width:45%"></div></div></td>
+          </tr>
+          <tr>
+            <td>Responsive Design</td>
+            <td>Learning</td>
+            <td><div class="bar-wrap"><div class="bar" style="width:35%"></div></div></td>
+          </tr>
+          <tr>
+            <td>JavaScript</td>
+            <td>Beginner</td>
+            <td><div class="bar-wrap"><div class="bar" style="width:20%"></div></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <footer>
+    &copy; 2026 Arhan Bramhane &mdash; My Frontend Development Journey
+  </footer>
+
+</body>
+</html>

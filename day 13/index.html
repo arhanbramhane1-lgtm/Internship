@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Directory — User Dashboard</title>
+<style>
+:root {
+  --ink: #1c2320;
+  --paper: #f3f1ea;
+  --card: #ffffff;
+  --line: #e0ddd2;
+  --accent: #2f6f5e;
+  --accent-soft: #e1efe9;
+  --accent-2: #a6672f;
+  --danger: #b3543f;
+  --muted: #767066;
+  --radius: 12px;
+  --rail-w: 280px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ---------- Rail ---------- */
+
+.rail {
+  width: var(--rail-w);
+  flex-shrink: 0;
+  background: var(--card);
+  border-right: 1px solid var(--line);
+  padding: 28px 20px;
+  overflow-y: auto;
+}
+
+.rail-head h1 {
+  margin: 0 0 2px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.rail-sub {
+  margin: 0 0 20px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.user-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.user-list li {
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.15s ease;
+}
+
+.user-list li:hover {
+  background: var(--accent-soft);
+}
+
+.user-list li.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.mini-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--accent-2);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.user-list li.active .mini-avatar {
+  background: #fff;
+  color: var(--accent);
+}
+
+.user-list .u-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.user-list .u-sub {
+  font-size: 0.72rem;
+  opacity: 0.75;
+}
+
+/* ---------- Main ---------- */
+
+.main {
+  flex: 1;
+  padding: 28px 32px 60px;
+  max-width: 1100px;
+}
+
+.status-bar {
+  min-height: 20px;
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+}
+
+.status-bar.loading {
+  color: var(--accent-2);
+}
+
+.status-bar.error {
+  color: var(--danger);
+}
+
+.hidden {
+  display: none !important;
+}
+
+.empty-panel {
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--muted);
+}
+
+/* user card */
+
+.user-card {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  margin-bottom: 28px;
+}
+
+.avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.user-info h2 {
+  margin: 0 0 2px;
+  font-size: 1.2rem;
+}
+
+.muted { color: var(--muted); margin: 0 0 8px; font-size: 0.88rem; }
+
+.user-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 0.82rem;
+}
+
+.user-meta span, .user-meta a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.user-meta a:hover { color: var(--accent); }
+
+/* posts */
+
+.section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.post-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+  border-color: var(--accent);
+}
+
+.post-card h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.3;
+  text-transform: capitalize;
+}
+
+.post-card p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.post-card .view-comments {
+  margin-top: auto;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* skeletons */
+
+.skeleton {
+  background: linear-gradient(90deg, var(--line) 25%, #efece2 37%, var(--line) 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-radius: 6px;
+}
+
+@keyframes shimmer {
+  0% { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+.skeleton-card {
+  height: 120px;
+  border-radius: var(--radius);
+}
+
+/* ---------- Modal ---------- */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 20px;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(28, 35, 32, 0.45);
+}
+
+.modal-box {
+  position: relative;
+  background: var(--card);
+  border-radius: var(--radius);
+  width: 100%;
+  max-width: 520px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.modal-head h3 {
+  margin: 0;
+  font-size: 1rem;
+  text-transform: capitalize;
+  line-height: 1.3;
+}
+
+.modal-close {
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.modal-body {
+  padding: 16px 20px 24px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.comment {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 12px;
+}
+
+.comment:last-child { border-bottom: none; padding-bottom: 0; }
+
+.comment .c-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin: 0 0 2px;
+  text-transform: capitalize;
+}
+
+.comment .c-email {
+  font-size: 0.72rem;
+  color: var(--accent-2);
+  margin: 0 0 6px;
+}
+
+.comment .c-body {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 800px) {
+  .app { flex-direction: column; }
+  .rail {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--line);
+    padding: 20px;
+  }
+  .user-list {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+  .user-list li {
+    flex-shrink: 0;
+  }
+  .u-sub { display: none; }
+  .main { padding: 20px; }
+  .user-card { flex-direction: column; align-items: flex-start; text-align: left; }
+}
+
+</style>
+</head>
+<body>
+
+  <div class="app">
+
+    <aside class="rail">
+      <div class="rail-head">
+        <h1>Directory</h1>
+        <p class="rail-sub">JSONPlaceholder dashboard</p>
+      </div>
+      <ul id="userList" class="user-list">
+        <!-- users injected here -->
+      </ul>
+    </aside>
+
+    <main class="main">
+
+      <div id="statusBar" class="status-bar"></div>
+
+      <section id="userPanel" class="user-panel hidden">
+        <div class="user-card">
+          <div class="avatar" id="avatarInitials">--</div>
+          <div class="user-info">
+            <h2 id="userName">—</h2>
+            <p id="userEmail" class="muted">—</p>
+            <div class="user-meta">
+              <span id="userCompany">—</span>
+              <span id="userCity">—</span>
+              <a id="userWebsite" href="#" target="_blank" rel="noopener">—</a>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="section-title">Posts</h3>
+        <div id="postsGrid" class="posts-grid"></div>
+      </section>
+
+      <section id="emptyPanel" class="empty-panel">
+        <p>Select a user from the list to view their posts and comments.</p>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Comments modal -->
+  <div id="commentModal" class="modal hidden">
+    <div class="modal-backdrop" id="modalBackdrop"></div>
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3 id="modalPostTitle">Post title</h3>
+        <button id="modalClose" class="modal-close" aria-label="Close">✕</button>
+      </div>
+      <div id="modalBody" class="modal-body">
+        <!-- comments injected here -->
+      </div>
+    </div>
+  </div>
+
+<script>
+const API_BASE = "https://jsonplaceholder.typicode.com";
+
+const userList = document.getElementById("userList");
+const statusBar = document.getElementById("statusBar");
+const userPanel = document.getElementById("userPanel");
+const emptyPanel = document.getElementById("emptyPanel");
+const postsGrid = document.getElementById("postsGrid");
+
+const avatarInitials = document.getElementById("avatarInitials");
+const userName = document.getElementById("userName");
+const userEmail = document.getElementById("userEmail");
+const userCompany = document.getElementById("userCompany");
+const userCity = document.getElementById("userCity");
+const userWebsite = document.getElementById("userWebsite");
+
+const commentModal = document.getElementById("commentModal");
+const modalBackdrop = document.getElementById("modalBackdrop");
+const modalClose = document.getElementById("modalClose");
+const modalPostTitle = document.getElementById("modalPostTitle");
+const modalBody = document.getElementById("modalBody");
+
+let activeUserId = null;
+
+// ---------- Status helper ----------
+
+function setStatus(message, type = "") {
+  statusBar.textContent = message;
+  statusBar.className = "status-bar" + (type ? " " + type : "");
+}
+
+// ---------- Generic fetch wrapper (Fetch API + error handling) ----------
+
+async function fetchJSON(url) {
+  let response;
+  try {
+    response = await fetch(url);
+  } catch (networkErr) {
+    throw new Error("Network error — check your connection and try again.");
+  }
+
+  if (!response.ok) {
+    throw new Error(`Request failed (${response.status} ${response.statusText})`);
+  }
+
+  try {
+    return await response.json();
+  } catch (parseErr) {
+    throw new Error("Received malformed data from the server.");
+  }
+}
+
+// ---------- Load users on startup ----------
+
+async function loadUsers() {
+  setStatus("Loading users…", "loading");
+  try {
+    const users = await fetchJSON(`${API_BASE}/users`);
+    renderUserList(users);
+    setStatus("");
+  } catch (err) {
+    setStatus(err.message, "error");
+  }
+}
+
+function initials(name) {
+  return name
+    .split(" ")
+    .map(word => word[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
+}
+
+function renderUserList(users) {
+  userList.innerHTML = "";
+  users.forEach(user => {
+    const li = document.createElement("li");
+    li.dataset.id = user.id;
+    li.innerHTML = `
+      <span class="mini-avatar">${initials(user.name)}</span>
+      <span>
+        <div class="u-name">${user.name}</div>
+        <div class="u-sub">${user.company.name}</div>
+      </span>
+    `;
+    li.addEventListener("click", () => selectUser(user, li));
+    userList.appendChild(li);
+  });
+}
+
+// ---------- Select a user: show details + posts ----------
+
+async function selectUser(user, listItem) {
+  activeUserId = user.id;
+
+  document.querySelectorAll("#userList li").forEach(li => li.classList.remove("active"));
+  listItem.classList.add("active");
+
+  emptyPanel.classList.add("hidden");
+  userPanel.classList.remove("hidden");
+
+  avatarInitials.textContent = initials(user.name);
+  userName.textContent = user.name;
+  userEmail.textContent = user.email;
+  userCompany.textContent = `🏢 ${user.company.name}`;
+  userCity.textContent = `📍 ${user.address.city}`;
+  userWebsite.textContent = `🔗 ${user.website}`;
+  userWebsite.href = `https://${user.website}`;
+
+  postsGrid.innerHTML = `
+    <div class="skeleton skeleton-card"></div>
+    <div class="skeleton skeleton-card"></div>
+    <div class="skeleton skeleton-card"></div>
+  `;
+
+  setStatus("Loading posts…", "loading");
+  try {
+    const posts = await fetchJSON(`${API_BASE}/posts?userId=${user.id}`);
+    if (activeUserId !== user.id) return; // user switched mid-request
+    renderPosts(posts);
+    setStatus("");
+  } catch (err) {
+    postsGrid.innerHTML = "";
+    setStatus(err.message, "error");
+  }
+}
+
+function renderPosts(posts) {
+  postsGrid.innerHTML = "";
+  if (posts.length === 0) {
+    postsGrid.innerHTML = `<p class="muted">This user has no posts yet.</p>`;
+    return;
+  }
+  posts.forEach(post => {
+    const card = document.createElement("div");
+    card.className = "post-card";
+    card.innerHTML = `
+      <h4>${post.title}</h4>
+      <p>${post.body}</p>
+      <span class="view-comments">View comments →</span>
+    `;
+    card.addEventListener("click", () => openComments(post));
+    postsGrid.appendChild(card);
+  });
+}
+
+// ---------- Comments modal ----------
+
+async function openComments(post) {
+  modalPostTitle.textContent = post.title;
+  modalBody.innerHTML = `<div class="skeleton" style="height:60px;"></div>`;
+  commentModal.classList.remove("hidden");
+
+  try {
+    const comments = await fetchJSON(`${API_BASE}/posts/${post.id}/comments`);
+    renderComments(comments);
+  } catch (err) {
+    modalBody.innerHTML = `<p style="color:#b3543f;">${err.message}</p>`;
+  }
+}
+
+function renderComments(comments) {
+  modalBody.innerHTML = "";
+  if (comments.length === 0) {
+    modalBody.innerHTML = `<p class="muted">No comments on this post.</p>`;
+    return;
+  }
+  comments.forEach(comment => {
+    const div = document.createElement("div");
+    div.className = "comment";
+    div.innerHTML = `
+      <p class="c-name">${comment.name}</p>
+      <p class="c-email">${comment.email}</p>
+      <p class="c-body">${comment.body}</p>
+    `;
+    modalBody.appendChild(div);
+  });
+}
+
+function closeModal() {
+  commentModal.classList.add("hidden");
+}
+
+modalClose.addEventListener("click", closeModal);
+modalBackdrop.addEventListener("click", closeModal);
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeModal();
+});
+
+// ---------- Init ----------
+
+loadUsers();
+
+</script>
+</body>
+</html>

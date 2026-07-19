@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tasklist</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main class="board">
+    <header class="board-head">
+      <h1>Tasklist</h1>
+      <p class="subtitle" id="taskCount">No tasks yet</p>
+    </header>
+
+    <form id="taskForm" class="add-row">
+      <input type="text" id="taskInput" placeholder="What needs doing?" autocomplete="off">
+      <button type="submit" aria-label="Add task">+</button>
+    </form>
+
+    <div class="search-row">
+      <input type="text" id="searchInput" placeholder="Search tasks…">
+    </div>
+
+    <ul id="taskList" class="task-list"></ul>
+
+    <p id="emptyState" class="empty-state">Nothing here. Add your first task above.</p>
+  </main>
+
+<script src="script.js"></script>
+</body>
+</html>

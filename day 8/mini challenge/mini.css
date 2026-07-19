@@ -1,0 +1,264 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:#fff;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:30px;
+    transition:.4s;
+}
+
+body.light{
+    background:#f4f4f4;
+    color:#222;
+}
+
+.container{
+    width:1200px;
+    max-width:100%;
+}
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo i{
+    font-size:30px;
+    color:#ffc107;
+}
+
+.logo h2{
+    font-size:28px;
+}
+
+.datetime{
+    text-align:center;
+}
+
+.datetime h3{
+    font-size:20px;
+}
+
+.datetime p{
+    color:#bbb;
+}
+
+#themeBtn{
+    width:50px;
+    height:50px;
+    border:none;
+    border-radius:50%;
+    cursor:pointer;
+    background:#1e293b;
+    color:#ffc107;
+    font-size:20px;
+    transition:.3s;
+}
+
+#themeBtn:hover{
+    transform:rotate(180deg);
+}
+
+.main{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+}
+
+.calculator,
+.bmi-card{
+    background:#1e293b;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,.3);
+}
+
+.calculator h2,
+.bmi-card h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+#display{
+    width:100%;
+    height:70px;
+    border:none;
+    outline:none;
+    background:#111827;
+    border-radius:15px;
+    color:#fff;
+    font-size:32px;
+    text-align:right;
+    padding:20px;
+    margin-bottom:20px;
+}
+
+.buttons{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+}
+
+.buttons button{
+    height:65px;
+    border:none;
+    border-radius:15px;
+    background:#334155;
+    color:#fff;
+    font-size:22px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.buttons button:hover{
+    transform:translateY(-4px);
+    background:#475569;
+}
+
+.operator{
+    background:#ff9800 !important;
+}
+
+.equal{
+    grid-column:span 2;
+    background:#16a34a !important;
+}
+.input-box{
+    margin-bottom:20px;
+}
+
+.input-box label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:500;
+}
+
+.input-box input{
+    width:100%;
+    padding:14px;
+    border:none;
+    outline:none;
+    border-radius:12px;
+    background:#111827;
+    color:#fff;
+    font-size:17px;
+}
+
+.bmi-btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:#ffc107;
+    color:#000;
+    font-size:18px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.bmi-btn:hover{
+    background:#ffb300;
+    transform:translateY(-3px);
+}
+
+.result{
+    margin-top:25px;
+    background:#111827;
+    border-radius:15px;
+    padding:20px;
+    text-align:center;
+}
+
+.result h3{
+    font-size:38px;
+    color:#ffc107;
+    margin-bottom:10px;
+}
+
+.result p{
+    font-size:18px;
+    color:#ddd;
+}
+
+/* Light Theme */
+
+body.light .calculator,
+body.light .bmi-card{
+    background:#ffffff;
+    color:#222;
+}
+
+body.light #display,
+body.light .input-box input,
+body.light .result{
+    background:#f0f0f0;
+    color:#000;
+}
+
+body.light .buttons button{
+    background:#e5e7eb;
+    color:#222;
+}
+
+body.light .buttons button:hover{
+    background:#d1d5db;
+}
+
+body.light #themeBtn{
+    background:#fff;
+}
+
+/* Responsive */
+
+@media(max-width:900px){
+
+    .main{
+        grid-template-columns:1fr;
+    }
+
+    header{
+        flex-direction:column;
+        gap:15px;
+    }
+
+}
+
+@media(max-width:500px){
+
+    .buttons button{
+        height:55px;
+        font-size:18px;
+    }
+
+    #display{
+        height:60px;
+        font-size:26px;
+    }
+
+    .logo h2{
+        font-size:22px;
+    }
+
+    .result h3{
+        font-size:30px;
+    }
+
+}

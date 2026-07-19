@@ -1,0 +1,197 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #f5f1ea;
+  color: #1c2b23;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.8rem;
+  color: #14251c;
+  letter-spacing: 1px;
+}
+
+.header p {
+  margin-top: 8px;
+  color: #7a6f5d;
+  font-style: italic;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 300px));
+  justify-content: center;
+  gap: 28px;
+}
+
+.product-card {
+  background: #fffdf9;
+  border: 1px solid #ece4d6;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.14);
+}
+
+.image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.product-card:hover .image-wrapper img {
+  transform: scale(1.08);
+}
+
+.badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #b8860b;
+  color: #fff;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.like-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.85);
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  color: #b0a99f;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.like-btn.liked {
+  color: #a4243b;
+  transform: scale(1.15);
+}
+
+.stock-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.card-body {
+  padding: 18px 20px 22px;
+}
+
+.category {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #8c9c8a;
+}
+
+.name {
+  margin: 6px 0 8px;
+  font-size: 1.1rem;
+  font-family: 'Playfair Display', serif;
+  color: #14251c;
+}
+
+.rating {
+  color: #c9971f;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.rating-value {
+  color: #8a7c6c;
+  font-size: 0.8rem;
+  margin-left: 4px;
+}
+
+.price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.price {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #1e3a2f;
+}
+
+.old-price {
+  font-size: 0.9rem;
+  color: #b0a99f;
+  text-decoration: line-through;
+}
+
+.add-btn {
+  width: 100%;
+  padding: 11px;
+  background: #1e3a2f;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  transition: background 0.25s ease;
+}
+
+.add-btn:hover:not(:disabled) {
+  background: #b8860b;
+}
+
+.add-btn.added {
+  background: #4a7c59;
+}
+
+.add-btn:disabled {
+  background: #cfc7ba;
+  cursor: not-allowed;
+}
+
+.out-of-stock .image-wrapper img {
+  filter: grayscale(0.5);
+}

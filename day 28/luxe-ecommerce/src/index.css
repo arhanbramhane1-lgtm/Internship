@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  @apply bg-obsidian text-ivory font-body antialiased;
+}
+
+::selection { background: #C9A24B; color: #0A0A0B; }
+
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #0A0A0B; }
+::-webkit-scrollbar-thumb { background: #26262A; border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: #C9A24B; }
+
+:focus-visible {
+  outline: 1.5px solid #C9A24B;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.eyebrow {
+  @apply text-[11px] tracking-widest2 uppercase text-gold font-medium;
+}
+
+.hairline {
+  @apply h-px bg-line;
+}
+
+.gold-underline {
+  position: relative;
+  display: inline-block;
+}
+.gold-underline::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -4px;
+  height: 1px;
+  background: #C9A24B;
+  width: 0%;
+  transition: width 0.35s ease;
+}
+.gold-underline:hover::after,
+.gold-underline.active::after {
+  width: 100%;
+}
+
+.btn-gold {
+  @apply bg-gold text-obsidian font-medium tracking-wide px-6 py-3 text-sm uppercase transition-colors duration-300 hover:bg-goldlight;
+}
+
+.btn-outline {
+  @apply border border-line text-ivory font-medium tracking-wide px-6 py-3 text-sm uppercase transition-colors duration-300 hover:border-gold hover:text-gold;
+}
+
+.card-surface {
+  @apply bg-surface border border-line;
+}

@@ -1,0 +1,98 @@
+.skeleton-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 350px;
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--border-color) 25%,
+    var(--card-bg) 50%,
+    var(--border-color) 75%
+  );
+  background-size: 400% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+html.dark .skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    #2a2d35 25%,
+    #333640 50%,
+    #2a2d35 75%
+  );
+  background-size: 400% 100%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.skeleton-image {
+  height: 200px;
+  width: 100%;
+}
+
+.skeleton-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.skeleton-category {
+  height: 12px;
+  width: 40%;
+  border-radius: 4px;
+}
+
+.skeleton-title {
+  height: 16px;
+  width: 90%;
+  border-radius: 4px;
+  margin-bottom: 4px;
+}
+
+.skeleton-title-2 {
+  height: 16px;
+  width: 70%;
+  border-radius: 4px;
+}
+
+.skeleton-rating {
+  height: 14px;
+  width: 30%;
+  border-radius: 4px;
+  margin-top: 8px;
+}
+
+.skeleton-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skeleton-price {
+  height: 24px;
+  width: 30%;
+  border-radius: 4px;
+}
+
+.skeleton-button {
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+}
